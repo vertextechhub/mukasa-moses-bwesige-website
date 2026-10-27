@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title_text %}Media & speaking{% endblock %}
+{% block meta_description %}Searchable archive of sourced interviews, webinars, recorded training and public contributions by Mukasa Moses Bwesige.{% endblock %}
+{% block content %}
+<section class="page-heading wrap">
+  <p class="eyebrow">Media archive</p>
+  <h1>Media &amp; speaking</h1>
+  <p class="page-deck">Interviews, public discussions, webinars and training recordings, linked to their original publisher. Dates and language are included only where documented; no third-party media is rehosted.</p>
+</section>
+<section class="library-intro wrap">
+  <div><span class="library-count">{{ page_obj.paginator.count }}</span><p>published contributions</p></div>
+  <p>Some publishers restrict direct access to older pages. Where that affects a record, the description identifies the limit rather than filling the gap with assumptions.</p>
+</section>
+<section class="section library-section">
+  <div class="wrap">
+    <h2 class="provided-media-heading">Photographs and posters</h2>
+    <div class="provided-media-grid" role="group" aria-label="Photographs, a newspaper feature and event posters">
+      <figure>
+        <a href="{% static 'images/images (2).jfif' %}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size presentation photograph">
+          <img src="{% static 'images/images (2).jfif' %}" alt="A man stands beside a projected presentation in a room with JRS signage." width="250" height="206" loading="lazy" decoding="async">
+        </a>
+      </figure>
+      <figure>
+        <a href="{% static 'images/images.jfif' %}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size video still">
+          <img src="{% static 'images/images.jfif' %}" alt="Video still of Moses Bwesige Mukasa speaking, with subtitles across the image." width="597" height="335" loading="lazy" decoding="async">
+        </a>
+      </figure>
+      <figure>
+        <a href="{% static 'images/images (5).jfif' %}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size workshop poster">
+          <img src="{% static 'images/images (5).jfif' %}" alt="Poster for a Brussels workshop on 8 and 9 October 2025 about staff care and mental health and psychosocial support for humanitarian personnel." width="447" height="447" loading="lazy" decoding="async">
+        </a>
+      </figure>
+      <figure>
+        <a href="{% static 'images/WhatsApp Image 2026-10-26 at 17.44.16.jpeg' %}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size speaking photograph">
+          <img src="{% static 'images/WhatsApp Image 2026-10-26 at 17.44.16.jpeg' %}" alt="Moses Bwesige Mukasa speaking into a microphone beside a Research Carnival on MHPSS banner." width="1047" height="1080" loading="lazy" decoding="async">
+        </a>
+      </figure>
+      <figure>
+        <a href="{% static 'images/WhatsApp Image 2026-10-26 at 17.44.17.jpeg' %}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size newspaper feature image">
+          <img src="{% static 'images/WhatsApp Image 2026-10-26 at 17.44.17.jpeg' %}" alt="Photograph of a newspaper page headed “It’s time for a national conversation about mental health,” with a portrait of Moses Bwesige Mukasa." width="603" height="1080" loading="lazy" decoding="async">
+        </a>
+      </figure>
+      <figure>
+        <a href="{% static 'images/WhatsApp Image 2026-10-26 at 17.44.18.jpeg' %}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size webinar poster">
+          <img src="{% static 'images/WhatsApp Image 2026-10-26 at 17.44.18.jpeg' %}" alt="Poster for Webinar #2, “This Much I Know: Practitioners Reflect on Community-Based MHPSS,” displaying 15 June at 13:00 UTC." width="1071" height="1080" loading="lazy" decoding="async">
+        </a>
+      </figure>
+    </div>
+    <form class="archive-filters media-filters" method="get" action="{% url 'media' %}">
+      <div class="filter-search"><label for="media-search">Search the archive</label><input id="media-search" type="search" name="q" value="{{ search }}" placeholder="Title, publisher or theme"></div>
+      <div><label for="media-type">Format</label><select id="media-type" name="type"><option value="">All formats</option>{% for value, label in media_types %}<option value="{{ value }}"{% if selected_type == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+      <div><label for="media-year">Year</label><select id="media-year" name="year"><option value="">Any year</option>{% for year in years %}<option value="{{ year }}"{% if selected_year == year|stringformat:"s" %} selected{% endif %}>{{ year }}</option>{% endfor %}</select></div>
+      <div><label for="media-language">Language</label><select id="media-language" name="language"><option value="">Any language</option>{% for value, label in languages %}<option value="{{ value }}"{% if selected_language == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+      <div><label for="media-topic">Theme</label><select id="media-topic" name="topic"><option value="">All themes</option>{% for topic in topics %}<option value="{{ topic.slug }}"{% if selected_topic == topic.slug %} selected{% endif %}>{{ topic.title }}</option>{% endfor %}</select></div>
+      <div><label for="media-publisher">Publisher / organiser</label><select id="media-publisher" name="publisher"><option value="">All publishers</option>{% for publisher in publishers %}<option value="{{ publisher }}"{% if selected_publisher == publisher %} selected{% endif %}>{{ publisher }}</option>{% endfor %}</select></div>
+      <div class="filter-actions"><button class="button button-primary" type="submit">Apply filters <span aria-hidden="true">→</span></button><a href="{% url 'media' %}">Clear</a></div>
+    </form>
+
+    {% if media_items %}
+      <div class="media-grid media-archive-grid" aria-live="polite">
+        {% for item in media_items %}
+          <article class="media-card">
+            {% if item.thumbnail %}
+              <div class="media-visual"><img src="{{ item.thumbnail.url }}" alt="{{ item.thumbnail_alt }}" loading="lazy" decoding="async"></div>
+            {% elif item.privacy_embed_url %}
+              <div class="media-visual media-video"><button class="video-load" type="button" data-embed-url="{{ item.privacy_embed_url }}" aria-label="Load video: {{ item.title }}"><span class="play-mark" aria-hidden="true">▶</span><span>Load video from YouTube</span></button><noscript><a href="{{ item.original_url|default:item.embed_url }}" rel="noopener noreferrer">Open video at its source</a></noscript></div>
+            {% else %}
+              <div class="media-visual media-source-label"><span class="resource-kind">{{ item.get_media_type_display }}</span><span>Original item hosted by publisher</span></div>
+            {% endif %}
+            <div class="media-card-copy">
+              <div class="resource-meta">
+                <span class="resource-kind">{{ item.get_media_type_display }}</span>
+                <span>{{ item.get_language_display }}</span>
+                {% if item.published_on %}<time datetime="{{ item.published_on|date:'Y-m-d' }}">{{ item.published_on|date:"j F Y" }}</time>{% elif item.published_year %}<span>{{ item.published_year }}</span>{% endif %}
+              </div>
+              <h2>{{ item.title }}</h2>
+              {% if item.summary %}<p class="media-summary">{{ item.summary }}</p>{% endif %}
+              {% if item.description %}<div class="rich-copy media-description">{{ item.description|linebreaks }}</div>{% endif %}
+              {% if item.source %}<p class="source-credit">Publisher / organiser: {{ item.source }}</p>{% endif %}
+              {% if item.related_areas.all %}<div class="topic-links">{% for topic in item.related_areas.all %}<a href="{% url 'area_detail' topic.slug %}">{{ topic.title }}</a>{% endfor %}</div>{% endif %}
+              <div class="media-links">
+                {% if item.original_url %}<a class="text-link" href="{{ item.original_url }}" rel="noopener noreferrer">{% if item.privacy_embed_url %}Open original recording{% elif item.media_type == "interview" or item.media_type == "feature" %}View original feature{% else %}View original source page{% endif %} <span aria-hidden="true">↗</span></a>{% endif %}
+                {% if item.source_url and item.source_url != item.original_url %}<a class="text-link" href="{{ item.source_url }}" rel="noopener noreferrer">Publisher announcement <span aria-hidden="true">↗</span></a>{% endif %}
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+      {% include "content/_pagination.html" with page_obj=page_obj %}
+    {% else %}
+      <div class="empty-state"><p class="eyebrow">No matching contributions</p><h2>Try a broader search or clear a filter.</h2><p>Only source-attributed public contributions are listed; unconfirmed leads remain unpublished.</p><a class="text-link" href="{% url 'media' %}">Clear all filters <span aria-hidden="true">→</span></a></div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
