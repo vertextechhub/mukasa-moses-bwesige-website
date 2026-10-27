@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title_text %}Publications & resources{% endblock %}
+{% block meta_description %}Search and filter peer-reviewed research, institutional features and attributed resources by Mukasa Moses Bwesige and related publishers.{% endblock %}
+{% block content %}
+<section class="page-heading wrap">
+  <p class="eyebrow">Research library</p>
+  <h1>Publications &amp; resources</h1>
+  <p class="page-deck">A source-linked catalogue of research papers, institutional features and practical resources. Authorship, publisher and contribution are stated separately so that a quotation or interview is not mistaken for an authored paper.</p>
+</section>
+<section class="library-intro wrap">
+  <div><span class="library-count">{{ page_obj.paginator.count }}</span><p>published records</p></div>
+  <p>Use the filters to browse by record type, year or theme. Unverified drafts remain unpublished and are not listed here.</p>
+</section>
+<section class="section library-section">
+  <div class="wrap">
+    <figure class="book-cover-spread">
+      <a href="{% static 'images/Interior_No_Cover_page-0001 (1).jpg' %}" target="_blank" rel="noopener noreferrer" aria-label="Open the full-size book cover spread">
+        <img src="{% static 'images/Interior_No_Cover_page-0001 (1).jpg' %}" alt="Full front-and-back cover spread for Reflexive Training: Reimagining Trainers of Trainers in Mental Health and Psychosocial Support, by Mukasa Moses Bwesige." width="2150" height="1518" loading="lazy" decoding="async">
+      </a>
+      <figcaption><a class="text-link" href="{% static 'images/Interior_No_Cover_page-0001 (1).jpg' %}" target="_blank" rel="noopener noreferrer">Open the full-size cover spread <span aria-hidden="true">↗</span></a></figcaption>
+    </figure>
+    <form class="archive-filters" method="get" action="{% url 'publications' %}">
+      <div class="filter-search"><label for="publication-search">Search the library</label><input id="publication-search" type="search" name="q" value="{{ search }}" placeholder="Title, author, journal, DOI or topic"></div>
+      <div><label for="publication-type">Record type</label><select id="publication-type" name="type"><option value="">All types</option>{% for value, label in resource_types %}<option value="{{ value }}"{% if selected_type == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+      <div><label for="publication-year">Year</label><select id="publication-year" name="year"><option value="">Any year</option>{% for year in years %}<option value="{{ year }}"{% if selected_year == year|stringformat:"s" %} selected{% endif %}>{{ year }}</option>{% endfor %}</select></div>
+      <div><label for="publication-topic">Theme</label><select id="publication-topic" name="topic"><option value="">All themes</option>{% for topic in topics %}<option value="{{ topic.slug }}"{% if selected_topic == topic.slug %} selected{% endif %}>{{ topic.title }}</option>{% endfor %}</select></div>
+      <div><label for="publication-publisher">Publisher</label><select id="publication-publisher" name="publisher"><option value="">All publishers</option>{% for publisher in publishers %}<option value="{{ publisher }}"{% if selected_publisher == publisher %} selected{% endif %}>{{ publisher }}</option>{% endfor %}</select></div>
+      <div class="filter-actions"><button class="button button-primary" type="submit">Apply filters <span aria-hidden="true">→</span></button><a href="{% url 'publications' %}">Clear</a></div>
+    </form>
+
+    {% if resources %}
+      <div class="library-results" aria-live="polite">
+        {% for resource in resources %}
+          <article class="library-record">
+            <div class="library-record-meta">
+              <span class="resource-kind">{{ resource.get_resource_type_display }}</span>
+              {% if resource.published_on %}<time datetime="{{ resource.published_on|date:'Y-m-d' }}">{{ resource.published_on|date:"j F Y" }}</time>{% elif resource.published_year %}<span>{{ resource.published_year }}</span>{% endif %}
+              {% if resource.language %}<span>{{ resource.language }}</span>{% endif %}
+            </div>
+            <div class="library-record-body">
+              <h2>{{ resource.title }}</h2>
+              {% if resource.summary %}<p class="record-summary">{{ resource.summary }}</p>{% endif %}
+              {% if resource.author_credit %}<p class="bibliography-authors"><strong>Author / attribution</strong> {{ resource.author_credit }}</p>{% endif %}
+              {% if resource.publisher %}<p class="bibliography-publisher"><strong>Publisher</strong> {{ resource.publisher }}</p>{% endif %}
+              {% if resource.slug == "unhcr-suicide-prevention-toolkit" %}<p class="bibliography-citation">Supplementary publication detail supplied: 2022.</p>{% endif %}
+              {% if resource.journal_name %}
+                <p class="bibliography-citation"><em>{{ resource.journal_name }}</em>{% if resource.volume %}, volume {{ resource.volume }}{% endif %}{% if resource.issue %}, issue {{ resource.issue }}{% endif %}{% if resource.page_range %}, pages {{ resource.page_range }}{% endif %}{% if resource.published_year %} ({{ resource.published_year }}){% endif %}</p>
+              {% elif not resource.publisher and resource.source_attribution %}<p class="bibliography-citation">{{ resource.source_attribution }}</p>{% endif %}
+              {% if resource.description %}<div class="rich-copy record-description">{{ resource.description|linebreaks }}</div>{% endif %}
+              {% if resource.organizations.all %}<div class="record-publishers">{% for organization in resource.organizations.all %}<span>{{ organization.title }}</span>{% endfor %}</div>{% endif %}
+              {% if resource.related_areas.all %}<div class="topic-links">{% for topic in resource.related_areas.all %}<a href="{% url 'area_detail' topic.slug %}">{{ topic.title }}</a>{% endfor %}</div>{% endif %}
+              <div class="record-links">
+                {% if resource.doi %}<a class="text-link" href="https://doi.org/{{ resource.doi }}" rel="noopener noreferrer">DOI: {{ resource.doi }} <span aria-hidden="true">↗</span></a>{% endif %}
+                {% if resource.source_url %}<a class="text-link" href="{{ resource.source_url }}" rel="noopener noreferrer">Original publisher source <span aria-hidden="true">↗</span></a>{% endif %}
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+      {% include "content/_pagination.html" with page_obj=page_obj %}
+    {% else %}
+      <div class="empty-state">
+        <p class="eyebrow">No matching records</p>
+        <h2>Try a different search or remove one of the filters.</h2>
+        <p>The archive only includes published records; uncertain authorship and incomplete citations are kept out of public results.</p>
+        <a class="text-link" href="{% url 'publications' %}">Clear all filters <span aria-hidden="true">→</span></a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+<section class="wrap editorial-caveat library-caveat">
+  <p><strong>Attribution standard.</strong> Institutional features, interviews and reports are credited to their publishers. A source quoting Mukasa is not presented as his authored work. DOI and journal metadata are shown only when recorded; source-specific name spellings remain with the relevant citation.</p>
+</section>
+{% endblock %}

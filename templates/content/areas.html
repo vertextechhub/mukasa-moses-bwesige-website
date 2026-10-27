@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title_text %}Areas of work{% endblock %}
+{% block meta_description %}Six source-linked themes in humanitarian mental health, suicide prevention, forced displacement, community support and equitable MHPSS.{% endblock %}
+{% block content %}
+<section class="page-heading wrap">
+  <p class="eyebrow">Areas of work</p>
+  <h1>Practice shaped by people and place.</h1>
+  <p class="page-deck">These themes are drawn from the subjects of published research, institutional profiles, interviews and public reflections. Each page distinguishes documented contributions from broader subject context.</p>
+</section>
+<section class="section wrap">
+  {% if work_areas %}
+    <div class="area-index">
+      {% for area in work_areas %}
+        <article class="area-index-row">
+          <span class="area-index-number">0{{ forloop.counter }}</span>
+          <div class="area-index-content">
+            <h2><a href="{% url 'area_detail' area.slug %}">{{ area.title }}</a></h2>
+            <p class="area-index-summary">{{ area.summary }}</p>
+            {% if area.description %}<div class="rich-copy">{{ area.description|linebreaks }}</div>{% endif %}
+            <div class="source-list-inline">
+              {% for reference in area.source_references.all %}
+                <a href="{{ reference.url }}" rel="noopener noreferrer">{{ reference.publisher|default:reference.title }} <span aria-hidden="true">↗</span></a>
+              {% endfor %}
+            </div>
+          </div>
+          <a class="row-arrow" href="{% url 'area_detail' area.slug %}" aria-label="Explore {{ area.title }}">↗</a>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state"><p class="eyebrow">Themes in preparation</p><h2>Areas will be described with their supporting sources.</h2><p>No themes have been published yet.</p></div>
+  {% endif %}
+</section>
+<section class="section section-tint" aria-labelledby="supplementary-practice-title">
+  <div class="wrap">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Additional practice areas</p>
+        <h2 id="supplementary-practice-title">Technical support across MHPSS and protection</h2>
+      </div>
+    </div>
+    <div class="rich-copy">
+      <p>Moses’s work includes community-based and community-led mental health and psychosocial support, protection, suicide prevention and response research, and the bidirectional integration of MHPSS across humanitarian and development sectors.</p>
+      <p>His technical and programmatic work spans research and assessments; programme design and evaluation; strategic and technical advisory work, including on-site practice support; and capacity strengthening through training, coaching and mentoring. This includes support for culturally grounded, evidence-informed and locally led approaches that centre affected communities’ knowledge, agency and leadership.</p>
+      <h3>Additional CV-documented capabilities</h3>
+      <ul>
+        <li>Regional technical leadership and cross-country coordination.</li>
+        <li>MHPSS and public health; humanitarian protection, inclusion and safeguarding.</li>
+        <li>Programme strategy, design and quality assurance, including peacebuilding and conflict-sensitive programming.</li>
+        <li>Partnership and stakeholder engagement; staff coaching, mentoring and capacity strengthening.</li>
+        <li>Resource prospecting, proposal development and budget support.</li>
+        <li>Evidence generation, research and learning products.</li>
+        <li>Refugee mental health, coping, resilience and psychosocial wellbeing.</li>
+        <li>Integration of MHPSS across humanitarian, development and peacebuilding programmes.</li>
+      </ul>
+    </div>
+    <figure class="practice-image">
+      <img src="{% static 'images/images (1).jfif' %}" alt="A man in a red shirt and identification lanyard writes in a notebook while seated with another adult indoors." width="699" height="438" loading="lazy" decoding="async">
+    </figure>
+  </div>
+</section>
+<section class="editorial-caveat wrap">
+  <p>Editorial note: a topic appearing in a publication or interview is evidence of the source’s subject matter, not by itself proof of an individual achievement, appointment or impact.</p>
+</section>
+<section class="closing-band">
+  <div class="wrap closing-inner"><p class="eyebrow">Further reading</p><h2>Follow a theme into the research library and media archive.</h2><div class="closing-actions"><a class="button button-light" href="{% url 'publications' %}">Publications &amp; resources <span aria-hidden="true">→</span></a><a class="button button-outline-light" href="{% url 'media' %}">Media &amp; speaking <span aria-hidden="true">↗</span></a></div></div>
+</section>
+{% endblock %}

@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title_text %}Home{% endblock %}
+{% block meta_description %}Moses Bwesige Mukasa is a Ugandan MHPSS practitioner and suicide researcher connecting community knowledge, research and humanitarian action.{% endblock %}
+{% block content %}
+<section class="home-hero wrap" aria-labelledby="home-hero-title">
+  <div class="home-hero-copy">
+    <p class="eyebrow">MHPSS practice <span aria-hidden="true">/</span> Suicide research <span aria-hidden="true">/</span> Humanitarian strategy</p>
+    <h1 id="home-hero-title">Rethinking mental health. Strengthening communities. Transforming humanitarian practice.</h1>
+    <p class="hero-intro">Moses Bwesige Mukasa is a Ugandan mental health and psychosocial support practitioner and suicide researcher working at the intersection of community knowledge, research and humanitarian action. For more than a decade, his work has spanned conflict-affected, post-conflict and displacement settings across East, Central and Southern Africa.</p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="{% url 'areas' %}">Explore my work <span aria-hidden="true">→</span></a>
+      <a class="text-link" href="{% url 'publications' %}">Research &amp; publications <span aria-hidden="true">↗</span></a>
+    </div>
+    <dl class="home-hero-details" aria-label="Current professional roles and affiliations">
+      <div><dt>Current role</dt><dd>Global Mission-Oriented Transformation Protection Technical Specialist, Jesuit Refugee Service <span>· since June 2026</span></dd></div>
+      <div><dt>Research affiliation</dt><dd>Joint PhD candidate, Ghent University and Makerere University</dd></div>
+    </dl>
+  </div>
+  <figure class="home-portrait">
+    <div class="home-portrait-frame">
+      {% if profile.portrait %}
+        <img src="{{ profile.portrait.url }}" alt="{{ profile.portrait_alt|default:'Portrait of Moses Bwesige Mukasa' }}" width="900" height="1125" fetchpriority="high">
+      {% else %}
+        <div class="home-portrait-placeholder">
+          <span class="portrait-index">Portrait</span>
+          <div><span class="portrait-placeholder-rule" aria-hidden="true"></span><p>Space reserved for an approved professional portrait.</p></div>
+          <span class="portrait-caption">No substitute image is shown</span>
+        </div>
+      {% endif %}
+    </div>
+    <figcaption class="home-portrait-caption">
+      <span><strong>Moses Bwesige Mukasa</strong><span>Kampala, Uganda</span></span>
+      <span class="portrait-region">East · Central · Southern Africa</span>
+    </figcaption>
+  </figure>
+</section>
+
+<section class="section wrap" aria-labelledby="supplementary-appointment-title">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Additional professional information</p>
+      <h2 id="supplementary-appointment-title">Current appointment and technical profile</h2>
+    </div>
+  </div>
+  <p><strong>Global Mission Transformation – Protection Specialist</strong>, Jesuit Refugee Service (JRS), Global Virtual Office, Global Mission Transformation Unit. His previous role was Inter-Regional MHPSS Officer for JRS’s Eastern and Southern Africa regions.</p>
+  <p>With over a decade of humanitarian experience, Moses works across community-based and community-led MHPSS, protection, suicide prevention and research, and strategic technical and programmatic support. He is a doctoral researcher jointly affiliated with Ghent University and Makerere University College of Humanities and Social Sciences.</p>
+  <p>His CV describes regional technical leadership across 14 countries, programme design and quality support, partnership coordination, applied research and evidence-to-practice guidance. The appointment and professional-history dates are presented as supplementary CV information on the <a href="{% url 'about' %}">About page</a>, including source differences requiring confirmation.</p>
+  <a class="text-link" href="{% url 'about' %}">Read the supplementary professional biography <span aria-hidden="true">→</span></a>
+  <figure class="home-profile-photo">
+    <img src="{% static 'images/images (3).jfif' %}" alt="Professional portrait of Moses Bwesige Mukasa wearing a suit and tie." width="400" height="400" loading="lazy" decoding="async">
+  </figure>
+</section>
+
+<section class="intro-band home-introduction" aria-labelledby="home-introduction-title">
+  <div class="wrap intro-inner intro-inner-wide">
+    <div>
+      <p class="eyebrow">Research shaped by lived context</p>
+      <h2 class="intro-statement" id="home-introduction-title">Evidence matters most when it listens to the people living its questions.</h2>
+    </div>
+    <div class="intro-side">
+      <p class="intro-context">Research, lived experience and community knowledge belong in the same conversation. That principle informs work on distress and coping in displacement settings, and the design of culturally grounded humanitarian responses.</p>
+      <a class="text-link" href="{% url 'about' %}">Read the professional biography <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap career-snapshot" aria-labelledby="career-snapshot-title">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Professional experience</p>
+      <h2 id="career-snapshot-title">A career beyond the publication record</h2>
+    </div>
+    <a class="text-link" href="{% url 'about' %}#professional-experience">Full chronology <span aria-hidden="true">→</span></a>
+  </div>
+  <p class="career-snapshot-intro">More than a decade of professional experience across humanitarian response, MHPSS, protection and programme work. The profile dossier describes earlier volunteer experience without a date; its earliest dated role is in 2014.</p>
+  {% if career_highlights %}
+    <ol class="career-snapshot-list">
+      {% for experience in career_highlights %}
+        <li>
+          <span class="career-snapshot-period">{{ experience.display_period }}</span>
+          <div><h3>{{ experience.title }}</h3><p>{{ experience.organization }}{% if experience.location %} <span>· {{ experience.location }}</span>{% endif %}</p></div>
+        </li>
+      {% endfor %}
+    </ol>
+  {% endif %}
+  <p class="career-snapshot-note">Chronology and dates are reproduced from the supplied profile dossier; source differences and details needing confirmation are identified in the <a href="{% url 'about' %}#professional-experience">professional record</a>.</p>
+</section>
+
+<section class="section section-tint">
+  <div class="wrap">
+    <div class="section-heading">
+      <div><p class="eyebrow">01 — Areas of work</p><h2>Six connected themes</h2></div>
+      <a class="text-link" href="{% url 'areas' %}">All areas of work <span aria-hidden="true">→</span></a>
+    </div>
+    {% if work_areas %}
+      <div class="theme-grid">
+        {% for area in work_areas %}
+          <article class="theme-card">
+            <span class="theme-number">0{{ forloop.counter }}</span>
+            <h3><a href="{% url 'area_detail' area.slug %}">{{ area.title }}</a></h3>
+            <p>{{ area.summary }}</p>
+            <a class="text-link" href="{% url 'area_detail' area.slug %}">Read theme <span aria-hidden="true">→</span></a>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}<p class="empty-note">Work areas will appear here when their source records are published.</p>{% endif %}
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="section-heading">
+    <div><p class="eyebrow">02 — Research</p><h2>Selected peer-reviewed work</h2></div>
+    <a class="text-link" href="{% url 'publications' %}">Browse the full library <span aria-hidden="true">→</span></a>
+  </div>
+  {% if featured_research %}
+    <div class="research-feature-grid">
+      {% for resource in featured_research %}
+        <article class="research-feature{% if forloop.first %} research-feature-primary{% endif %}">
+          <div class="resource-meta"><span class="resource-kind">Research article</span>{% if resource.published_year %}<span>{{ resource.published_year }}</span>{% endif %}</div>
+          <h3>{{ resource.title }}</h3>
+          {% if resource.author_credit %}<p class="research-authors">{{ resource.author_credit }}</p>{% endif %}
+          {% if resource.journal_name %}<p class="citation-line"><em>{{ resource.journal_name }}</em>{% if resource.volume %}, {{ resource.volume }}{% endif %}{% if resource.issue %}({{ resource.issue }}){% endif %}{% if resource.page_range %}, {{ resource.page_range }}{% endif %}</p>{% endif %}
+          {% if resource.publisher %}<p class="citation-line">Publisher: {{ resource.publisher }}</p>{% endif %}
+          <p>{{ resource.summary }}</p>
+          {% if resource.doi %}<a class="text-link" href="https://doi.org/{{ resource.doi }}" rel="noopener noreferrer">DOI: {{ resource.doi }} <span aria-hidden="true">↗</span></a>{% elif resource.source_url %}<a class="text-link" href="{{ resource.source_url }}" rel="noopener noreferrer">Open publisher page <span aria-hidden="true">↗</span></a>{% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}<p class="empty-note">Research records will appear here when verified and published.</p>{% endif %}
+</section>
+
+<section class="section section-tint">
+  <div class="wrap">
+    <div class="section-heading">
+      <div><p class="eyebrow">03 — Institutional reading</p><h2>Features, organisations &amp; resources</h2></div>
+      <a class="text-link" href="{% url 'publications' %}">Research library and resources <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="institution-grid">
+      {% for resource in institutional_resources %}
+        <article class="institution-item">
+          <div class="resource-meta"><span class="resource-kind">{{ resource.get_resource_type_display }}</span>{% if resource.published_year %}<span>{{ resource.published_year }}</span>{% endif %}</div>
+          <h3>{{ resource.title }}</h3>
+          <p>{{ resource.summary }}</p>
+          {% if resource.author_credit %}<p class="source-credit">{{ resource.author_credit }}</p>{% endif %}
+          {% if resource.source_url %}<a class="text-link" href="{{ resource.source_url }}" rel="noopener noreferrer">Visit original source <span aria-hidden="true">↗</span></a>{% endif %}
+        </article>
+      {% empty %}<p class="empty-note">Institutional resources will appear here as source details are confirmed.</p>{% endfor %}
+    </div>
+    {% if organizations %}
+      <div class="organization-strip">
+        <p class="eyebrow">Documented institutional links</p>
+        {% for organization in organizations %}
+          <article><div><h3>{{ organization.title }}</h3><p>{{ organization.summary }}</p></div>{% if organization.website_url %}<a class="text-link" href="{{ organization.website_url }}" rel="noopener noreferrer">Organisation website <span aria-hidden="true">↗</span></a>{% endif %}</article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section wrap home-gallery-section" aria-labelledby="home-gallery-title">
+  <div class="section-heading">
+    <div><p class="eyebrow">04 — Photographs &amp; visual stories</p><h2 id="home-gallery-title">Work, place and practice</h2></div>
+    <a class="text-link" href="{% url 'media' %}">More from the media archive <span aria-hidden="true">→</span></a>
+  </div>
+  {% if featured_photos %}
+    <div class="home-photo-grid">
+      {% for photo in featured_photos %}
+        <figure class="home-photo">
+          <div class="home-photo-frame">
+            <img src="{{ photo.thumbnail.url }}" alt="{{ photo.thumbnail_alt|default:photo.title }}" width="1200" height="900" loading="lazy" decoding="async">
+          </div>
+          <figcaption>
+            <strong>{{ photo.title }}</strong>
+            {% if photo.summary %}<span>{{ photo.summary }}</span>{% endif %}
+            {% if photo.source %}<span class="home-photo-source">{{ photo.source }}{% if photo.published_year %} · {{ photo.published_year }}{% endif %}</span>{% endif %}
+          </figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="home-photo-placeholder">
+      <span class="portrait-index">Photographs to come</span>
+      <p>Selected portraits and professional moments will appear here when approved images are added.</p>
+      <span class="portrait-caption">No stock or unrelated images are used</span>
+    </div>
+  {% endif %}
+</section>
+
+<section class="section section-tint home-video-section" aria-labelledby="home-video-title">
+  <div class="wrap">
+    <div class="section-heading">
+      <div><p class="eyebrow">05 — Featured recordings</p><h2 id="home-video-title">Ideas in conversation</h2></div>
+      <a class="text-link" href="{% url 'media' %}">Explore all media &amp; speaking <span aria-hidden="true">→</span></a>
+    </div>
+    {% if featured_videos %}
+      <div class="home-video-grid">
+        {% for item in featured_videos %}
+          <article class="home-video">
+            {% if item.privacy_embed_url %}
+              <div class="home-video-frame">
+                <iframe src="{{ item.privacy_embed_url }}" title="{{ item.title }}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            {% endif %}
+            <div class="home-video-copy">
+              <div class="resource-meta">
+                <span class="resource-kind">{{ item.get_media_type_display }}</span>
+                {% if item.source %}<span>{{ item.source }}</span>{% endif %}
+                {% if item.published_on %}<time datetime="{{ item.published_on|date:'Y-m-d' }}">{{ item.published_on|date:"j M Y" }}</time>{% elif item.published_year %}<span>{{ item.published_year }}</span>{% endif %}
+                {% if item.language != "other" %}<span>{{ item.get_language_display }}</span>{% endif %}
+              </div>
+              <h3>{{ item.title }}</h3>
+              {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
+              {% if item.description %}<p class="home-video-description">{{ item.description|truncatewords:35 }}</p>{% endif %}
+              {% if item.original_url %}
+                <a class="text-link" href="{{ item.original_url }}" target="_blank" rel="noopener noreferrer">{% if item.privacy_embed_url %}Open original recording{% else %}Open original media item{% endif %} <span aria-hidden="true">↗</span></a>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty-note">Verified recordings will appear here when they are selected for the homepage.</p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="section-heading">
+    <div><p class="eyebrow">06 — Public contributions</p><h2>In conversation and practice</h2></div>
+    <a class="text-link" href="{% url 'media' %}">Open the media archive <span aria-hidden="true">→</span></a>
+  </div>
+  {% if media_items %}
+    <div class="home-media-list">
+      {% for item in media_items %}
+        <article class="home-media-row">
+          <div class="resource-meta"><span class="resource-kind">{{ item.get_media_type_display }}</span>{% if item.published_on %}<time datetime="{{ item.published_on|date:'Y-m-d' }}">{{ item.published_on|date:"j M Y" }}</time>{% elif item.published_year %}<span>{{ item.published_year }}</span>{% endif %}</div>
+          <div><h3>{{ item.title }}</h3><p>{{ item.summary }}</p><p class="home-media-description">{{ item.description|truncatewords:48 }}</p>{% if item.related_areas.all %}<div class="topic-links">{% for topic in item.related_areas.all %}<a href="{% url 'area_detail' topic.slug %}">{{ topic.title }}</a>{% endfor %}</div>{% endif %}</div>
+          {% if item.original_url %}<a class="row-arrow" href="{{ item.original_url }}" rel="noopener noreferrer" aria-label="Open original source for {{ item.title }}">↗</a>{% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}<p class="empty-note">Interviews, training and public contributions will appear here with their original source details.</p>{% endif %}
+</section>
+
+<section class="section section-tint">
+  <div class="wrap">
+    <div class="section-heading">
+      <div><p class="eyebrow">07 — Reflections</p><h2>Published perspective</h2></div>
+      <a class="text-link" href="{% url 'insights' %}">All reflections <span aria-hidden="true">→</span></a>
+    </div>
+    {% if insights %}
+      <div class="reflection-preview">
+        {% for insight in insights %}
+          <article>
+            <span class="resource-kind">{% if insight.published_on %}{{ insight.published_on|date:"j F Y" }}{% elif insight.published_year %}{{ insight.published_year }}{% endif %} · {{ insight.original_source }}</span>
+            <h3>{{ insight.title }}</h3><p>{{ insight.summary }}</p>
+            {% if insight.source_url %}<a class="text-link" href="{{ insight.source_url }}" rel="noopener noreferrer">Read at publisher <span aria-hidden="true">↗</span></a>{% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}<p class="empty-note">Only source-attributed writing is included in this section.</p>{% endif %}
+  </div>
+</section>
+
+<section class="closing-band">
+  <div class="wrap closing-inner closing-inner-wide">
+    <div><p class="eyebrow">Continue exploring</p><h2>Research, professional contributions and opportunities to connect.</h2></div>
+    <div class="closing-actions">
+      <a class="button button-light" href="{% url 'publications' %}">Research &amp; resources <span aria-hidden="true">→</span></a>
+      <a class="button button-outline-light" href="{% url 'media' %}">Media &amp; speaking <span aria-hidden="true">→</span></a>
+      <a class="button button-outline-light" href="{% url 'contact' %}">Contact <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title_text %}About{% endblock %}
+{% block meta_description %}Professional biography and chronological career record for Moses Bwesige Mukasa, a Ugandan MHPSS practitioner and suicide researcher.{% endblock %}
+{% block content %}
+<section class="page-heading wrap about-heading">
+  <p class="eyebrow">About</p>
+  <h1>Moses Bwesige Mukasa</h1>
+  <p class="page-deck">Mental health and psychosocial support practitioner, suicide researcher and humanitarian programme strategist.</p>
+</section>
+
+<article class="about-profile wrap{% if profile and profile.portrait %} has-portrait{% endif %}" aria-label="Professional biography">
+  {% if profile and profile.portrait %}
+    <figure class="about-profile-image">
+      <img src="{{ profile.portrait.url }}" alt="{{ profile.portrait_alt|default:'Portrait of Moses Bwesige Mukasa' }}" width="720" height="900" loading="lazy" decoding="async">
+    </figure>
+  {% endif %}
+  <div class="about-profile-copy">
+    <section>
+      <h2>Practice shaped by context</h2>
+      <p>Moses Bwesige Mukasa is a Kampala-based Ugandan MHPSS practitioner, suicide researcher and humanitarian programme strategist. For more than a decade, he has worked across conflict-affected, post-conflict and displacement settings in East, Central and Southern Africa, as well as professional projects involving Europe. His work spans community-based mental health support, suicide prevention, humanitarian protection and programme strategy, with attention to culturally grounded, gender-responsive and community-led practice.</p>
+      <p>A JRS USA profile describes early volunteer experience at Uganda's national mental health hospital after undergraduate study, followed by humanitarian protection work in South Sudan and the Democratic Republic of the Congo. The available source does not give the volunteer dates or hospital name. The supplied career chronology then records roles in Ugandan public service and peacebuilding before psychosocial-support positions in the northern Uganda refugee response and later regional technical work. It includes employment, consultancies, volunteer and governance appointments; the dated record below preserves the source distinctions rather than inventing a single continuous job history.</p>
+    </section>
+
+    <section>
+      <h2>Research and academic context</h2>
+      <p>He is a joint PhD candidate at Ghent University in Belgium and Makerere University in Uganda; the doctorate is in progress and is not presented as completed. His research examines suicidal ideation and behaviour among refugees in northern Uganda, including risk factors, explanatory models and coping strategies. His 2021 study of suicide-related behaviours in Palorinya and a 2026 co-authored paper on coping after a suicide attempt are listed in the <a href="{% url 'publications' %}">research library</a>.</p>
+    </section>
+
+    <section>
+      <h2>Current professional work</h2>
+      <p>The supplied profile identifies his role at Jesuit Refugee Service as Global Mission-Oriented Transformation Protection Technical Specialist, beginning June 2026. It also lists the preceding Inter-Regional MHPSS Officer appointment for East and Southern Africa through July 2026; these dates overlap and are presented with a reconciliation note in the chronology. He founded the Great Lakes Research Institute for Mental Health &amp; Wellbeing, established in 2025.</p>
+      <figure class="about-supporting-image">
+        <img src="{% static 'images/images (4).jfif' %}" alt="Moses Bwesige Mukasa outdoors in a blue vest with an on-image label identifying him as an Interregional MHPSS Officer." width="335" height="597" loading="lazy" decoding="async">
+      </figure>
+    </section>
+  </div>
+</article>
+
+<section class="section section-tint" aria-labelledby="supplementary-biography-title">
+  <div class="wrap">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Additional professional biography</p>
+        <h2 id="supplementary-biography-title">MHPSS, protection and community-led practice</h2>
+      </div>
+    </div>
+    <div class="rich-copy">
+      <p>Moses Mukasa Bwesige is the Global Mission Transformation – Protection Specialist at Jesuit Refugee Service (JRS), having previously served as Inter-Regional MHPSS Officer for JRS’s Eastern and Southern Africa regions. With over a decade of experience in humanitarian settings, he has worked with and alongside United Nations agencies, governments, faith-based organisations, academic institutions, and international and national humanitarian and development organisations, providing strategic, technical and programmatic MHPSS advisory and on-site practice support.</p>
+      <p>His expertise spans community-based and community-led mental health and psychosocial support (MHPSS), suicide-related behaviour prevention and response research, and the bidirectional integration of MHPSS across humanitarian and development sectors. His extensive MHPSS and protection experience includes research, assessments, programme design and evaluation, technical guidance, and capacity strengthening through training, coaching and mentoring.</p>
+      <p>Moses’s research examines suicide-related risks and behaviours, coping mechanisms, and cultural understandings of mental health and psychosocial wellbeing among displaced populations, particularly South Sudanese refugees.</p>
+      <p>He is a doctoral researcher jointly affiliated with Ghent University in Belgium and Makerere University College of Humanities and Social Sciences (CHUSS), School of Psychology, Uganda. His academic background includes master’s qualifications in Public Health and Counselling Psychology.</p>
+      <p>Moses is the author of <em>Reflexive Training: Reimagining Trainers of Trainers in Mental Health and Psychosocial Support</em>. The book challenges foundational assumptions in Training of Trainers (ToT) practice in MHPSS. Drawing on critical pedagogy, anthropology and reflexive practice, it presents reflexive training as an ethical and political practice.</p>
+      <p>His work also spans suicide prevention, refugee mental health, psychosocial wellbeing and substance use treatment. His research, publications and contributions include authored and co-authored research, institutional resources, and other works with attribution stated in the <a href="{% url 'publications' %}">publications and resources library</a>.</p>
+      <p>Moses champions evidence-informed, culturally grounded and locally led approaches to MHPSS. He advocates for epistemic justice and systems that centre the knowledge, agency and leadership of affected communities.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section experience-section" id="professional-experience" aria-labelledby="professional-experience-title">
+  <div class="wrap">
+    <div class="section-heading">
+      <div><p class="eyebrow">Career record</p><h2 id="professional-experience-title">Professional experience</h2></div>
+    </div>
+    <p class="experience-intro">The profile dossier describes more than a decade of professional experience. This chronology presents the roles and dates it records, chiefly from a LinkedIn profile snapshot. Those entries are supplied profile information, not independently confirmed employment records. The first dated entry shown is not asserted to be the beginning of his career.</p>
+
+    {% for experience in professional_experience %}
+      {% if not experience.start_year %}
+        <article class="experience-undated">
+          <div class="experience-period">{{ experience.display_period }}</div>
+          <div>
+            <p class="resource-kind">Earlier professional experience · date not stated</p>
+            <h3>{{ experience.title }}</h3>
+            <p class="experience-organization">{{ experience.organization }}</p>
+            {% if experience.location %}<p class="experience-location">{{ experience.location }}</p>{% endif %}
+            {% if experience.description %}<p class="experience-description">{{ experience.description }}</p>{% endif %}
+            {% if experience.source_references.all %}
+              <div class="experience-sources">{% for reference in experience.source_references.all %}<a href="{{ reference.url }}" target="_blank" rel="noopener noreferrer">{{ reference.publisher }} source <span aria-hidden="true">↗</span></a>{% endfor %}</div>
+            {% endif %}
+          </div>
+        </article>
+      {% endif %}
+    {% endfor %}
+
+    <ol class="experience-timeline">
+      {% for experience in professional_experience %}
+        {% if experience.start_year %}
+          <li>
+            <div class="experience-period">{{ experience.display_period }}</div>
+            <article>
+              <p class="resource-kind">{{ experience.get_experience_type_display }}</p>
+              <h3>{{ experience.title }}</h3>
+              {% if experience.organization %}<p class="experience-organization">{{ experience.organization }}</p>{% endif %}
+              {% if experience.location %}<p class="experience-location">{{ experience.location }}</p>{% endif %}
+              {% if experience.description %}<p class="experience-description">{{ experience.description }}</p>{% endif %}
+              {% if experience.source_references.all %}
+                <div class="experience-sources">{% for reference in experience.source_references.all %}<a href="{{ reference.url }}" target="_blank" rel="noopener noreferrer">{{ reference.publisher }} source <span aria-hidden="true">↗</span></a>{% endfor %}</div>
+              {% endif %}
+            </article>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ol>
+
+    <aside class="experience-caveats">
+      <h3>Dates and role descriptions that need reconciliation</h3>
+      <ul>
+        <li>For the JRS inter-regional appointment, the dossier's LinkedIn-based chronology says January 2023, while its JRS/ReliefWeb source note says JRS reports joining in April 2023.</li>
+        <li>The dossier dates the inter-regional position through July 2026 and the current JRS specialist appointment from June 2026, so the reported roles overlap. The transition or relationship between the roles is not established.</li>
+        <li>The two LWF officer entries overlap from January 2019 to May 2022; whether this reflects a progression or concurrent titles needs confirmation.</li>
+        <li>The Simbi Foundation page uses the name “Mukasa Moses”; identity matching requires confirmation. CoCreate Humanity and the dossier also give different start descriptions for the peer-support role.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<section class="section section-tint" aria-labelledby="education-title">
+  <div class="wrap about-detail-grid">
+    <div>
+      <p class="eyebrow">Education and current study</p>
+      <h2 id="education-title">Doctoral research in progress</h2>
+      {% if education_text %}<div class="rich-copy">{{ education_text|linebreaks }}</div>{% else %}<p class="section-lead">The supplied profile identifies joint PhD candidacy at Ghent University and Makerere University. No completed doctorate is claimed.</p>{% endif %}
+    </div>
+    <div>
+      <p class="eyebrow">Research interests</p>
+      <h2>Suicide, coping and context</h2>
+      <p class="rich-copy">Research focuses on suicidal ideation and behaviour among refugees in northern Uganda: risk factors, explanatory models, coping strategies, and responses grounded in cultural and community knowledge.</p>
+      <a class="text-link" href="{% url 'publications' %}">View research and publications <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" aria-labelledby="affiliations-title">
+  <div class="about-secondary-section">
+    <p class="eyebrow">Affiliations</p>
+    <h2 id="affiliations-title">Institutional and community work</h2>
+    {% if affiliations_text %}<div class="rich-copy">{{ affiliations_text|linebreaks }}</div>{% endif %}
+    <a class="text-link" href="{% url 'areas' %}">Explore areas of work <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<section class="section section-tint" aria-labelledby="contributions-title">
+  <div class="wrap">
+    <div class="section-heading">
+      <div><p class="eyebrow">Selected contributions</p><h2 id="contributions-title">Research and public work</h2></div>
+      <a class="text-link" href="{% url 'media' %}">Full media &amp; speaking archive <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="about-contribution-grid">
+      <div>
+        <h3>Research papers</h3>
+        {% for item in research_records %}
+          <article class="about-contribution">
+            <span class="resource-kind">{{ item.published_year }} · Research</span>
+            <h4>{{ item.title }}</h4>
+            {% if item.author_credit %}<p>{{ item.author_credit }}</p>{% endif %}
+            {% if item.source_url %}<a href="{{ item.source_url }}" target="_blank" rel="noopener noreferrer">Publisher record <span aria-hidden="true">↗</span></a>{% endif %}
+          </article>
+        {% endfor %}
+      </div>
+      <div>
+        <h3>Selected public contributions</h3>
+        {% for item in selected_contributions %}
+          <article class="about-contribution">
+            <span class="resource-kind">{{ item.source }}{% if item.published_year %} · {{ item.published_year }}{% endif %}</span>
+            <h4>{{ item.title }}</h4>
+            {% if item.original_url %}<a href="{{ item.original_url }}" target="_blank" rel="noopener noreferrer">Original source <span aria-hidden="true">↗</span></a>{% endif %}
+          </article>
+        {% empty %}<p class="empty-note">Public contributions are listed in the media archive as source records are published.</p>{% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tint" aria-labelledby="cv-profile-title">
+  <div class="wrap">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">CV supplement</p>
+        <h2 id="cv-profile-title">Professional profile and leadership</h2>
+      </div>
+    </div>
+    <div class="rich-copy">
+      <p>Moses Bwesige Mukasa is a mental health and psychosocial support practitioner, suicide researcher and humanitarian programme strategist with more than ten years of professional experience across refugee and conflict-affected settings in East, Central and Southern Africa.</p>
+      <p>His experience includes regional technical leadership across 14 countries, programme design and quality support, staff capacity strengthening, partnership coordination, applied research and evidence-to-practice guidance. He has managed Uganda operations, coordinated multi-partner programmes, supported proposal and budget development, undertaken donor prospect research and served as Board Chair of a community-based sociotherapy organisation.</p>
+      <p>His professional work focuses on locally led, ethical and accountable psychosocial support for children, young people, families and communities. He is a doctoral candidate at Ghent University and Makerere University, with research interests in refugee mental health, suicide prevention, coping and the integration of mental health and psychosocial support into peacebuilding.</p>
+      <p>The CV lists the Global Mission-Oriented Transformation role as Protection Technical Specialist, June 2026–Present, and the Inter-Regional MHPSS Officer role as April 2023–Present. Both are shown as current in the CV. Their relationship is not explained; the roles and dates have not been reconciled with the earlier website chronology.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" aria-labelledby="cv-education-title">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">CV supplement</p>
+      <h2 id="cv-education-title">Education and professional training</h2>
+    </div>
+  </div>
+  <div class="about-contribution-grid">
+    <div class="rich-copy">
+      <h3>Education</h3>
+      <ul>
+        <li><strong>PhD candidate — Clinical Psychology and Educational Sciences</strong>, Ghent University, Belgium, and Makerere University, Uganda. Double-degree programme, 2023–Present. Research focus: suicidal behaviour, coping and resilience among refugees in humanitarian settings. This degree is in progress.</li>
+        <li><strong>Master of Public Health — Health Promotion</strong>, Bugema Adventist University, Kampala, Uganda, 2018–2021.</li>
+        <li><strong>Bachelor of Arts — Social Sciences</strong>, Kyambogo University, Uganda, 2011–2015. Major: Psychology. Minors: Sociology and Political Science.</li>
+      </ul>
+      <p><strong>Qualification note:</strong> The CV lists the qualifications above and does not list a completed master’s degree in Counselling Psychology. The existing website biography’s separate mention of a master’s qualification in Counselling Psychology is preserved pending confirmation; no doctorate is presented as completed.</p>
+    </div>
+    <div class="rich-copy">
+      <h3>Professional training</h3>
+      <ul>
+        <li><strong>2022:</strong> MHPSS Coordination in Humanitarian Settings — Dutch Surge Support, WHO and IASC Reference Group.</li>
+        <li><strong>2021:</strong> Mental Health in Complex Emergencies — Fordham University / UNHCR Geneva.</li>
+        <li><strong>2019–2020:</strong> Advanced Certificate in Community-Based Psychosocial Support Programming, Evaluation and Implementation — ACT Alliance / Church of Sweden.</li>
+        <li><strong>2020:</strong> Leadership and Staff Management — Lutheran World Federation.</li>
+        <li>Additional training and standards: Core Humanitarian Standards, Child Protection Minimum Standards, Prevention of Sexual Exploitation and Abuse (PSEA), and safeguarding.</li>
+      </ul>
+      <p>These professional development items are listed separately from academic degrees.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tint" aria-labelledby="cv-contributions-title">
+  <div class="wrap">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">CV supplement</p>
+        <h2 id="cv-contributions-title">Governance, teaching and professional contributions</h2>
+      </div>
+    </div>
+    <div class="rich-copy">
+      <p>The Board Chair role at the Institute for Community Based Sociotherapy (ICBS) and peer support membership at CoCreate Humanity are included in the professional chronology above.</p>
+      <ul>
+        <li>Member, IASC Reference Group on MHPSS and Peacebuilding.</li>
+        <li>Guest lecturer at the Institute for Global Health and Development.</li>
+        <li>Guest lecturer at Loyola University Chicago.</li>
+        <li>Guest lecturer at Lewis &amp; Clark Graduate School of Education and Counseling.</li>
+        <li>Facilitator, ACT Forum Psychosocial Support Community of Practice.</li>
+        <li>Presenter on suicide prevention and equitable authorship.</li>
+      </ul>
+      <p>No dates are supplied for these contributions.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" aria-labelledby="cv-expertise-title">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">CV supplement</p>
+      <h2 id="cv-expertise-title">Leadership and technical expertise</h2>
+    </div>
+  </div>
+  <div class="rich-copy">
+    <ul>
+      <li>Regional technical leadership and cross-country coordination.</li>
+      <li>MHPSS and public health.</li>
+      <li>Community-based and community-led psychosocial support.</li>
+      <li>Programme strategy, design and quality assurance.</li>
+      <li>Partnership and stakeholder engagement.</li>
+      <li>Staff coaching, mentoring and capacity strengthening.</li>
+      <li>Resource prospecting, proposal development and budget support.</li>
+      <li>Evidence generation, research and learning products.</li>
+      <li>Humanitarian protection, inclusion and safeguarding.</li>
+      <li>Peacebuilding and conflict-sensitive programming.</li>
+      <li>Suicide prevention and research into suicide-related behaviours.</li>
+      <li>Refugee mental health, coping, resilience and psychosocial wellbeing.</li>
+      <li>Integration of MHPSS across humanitarian, development and peacebuilding programmes.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section-tint" aria-labelledby="cv-regional-title">
+  <div class="wrap about-detail-grid">
+    <div class="rich-copy">
+      <p class="eyebrow">Regional experience</p>
+      <h2 id="cv-regional-title">Countries and professional settings</h2>
+      <p><strong>Countries listed in the CV:</strong> Angola, Burundi, Central African Republic, Democratic Republic of the Congo, Ethiopia, Kenya, Malawi, Mali, Mozambique, South Africa, South Sudan, Sudan, Tanzania, Uganda and Zimbabwe.</p>
+      <p><strong>Additional professional experience listed:</strong> Belgium, Denmark, Italy and Switzerland.</p>
+      <p>The CV separately describes regional technical leadership across 14 countries and lists 15 countries under country experience. Both statements are retained as supplied; the difference is not reconciled here.</p>
+    </div>
+    <div class="rich-copy">
+      <p class="eyebrow">Languages</p>
+      <h2>Language skills</h2>
+      <ul>
+        <li>English — fluent.</li>
+        <li>Swahili — basic.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+{% endblock %}

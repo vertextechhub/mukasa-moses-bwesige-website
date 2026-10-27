@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title_text %}Contact{% endblock %}
+{% block meta_description %}Send a professional enquiry to Mukasa Moses Bwesige.{% endblock %}
+{% block content %}
+<section class="page-heading wrap"><p class="eyebrow">Contact</p><h1>Start a conversation.</h1><p class="page-deck">For professional enquiries, speaking opportunities and collaboration. Share a few details using the secure form.</p></section>
+<section class="contact-layout wrap">
+  <div class="contact-aside"><p class="eyebrow">A note on privacy</p><p>Messages submitted here are stored for the site administrator to review. Please do not include sensitive health information or confidential personal details.</p></div>
+  <div class="contact-form-wrap">
+    <form method="post" class="contact-form" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}<div class="form-errors" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+      <div class="honeypot" aria-hidden="true">{{ form.website }}</div>
+      {% for field in form %}
+        {% if field.name != "website" %}<div class="form-field{% if field.errors %} has-error{% endif %}"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}{% if field.errors %}<div class="field-error" role="alert">{{ field.errors }}</div>{% endif %}</div>{% endif %}
+      {% endfor %}
+      <button class="button button-primary" type="submit">Send message <span aria-hidden="true">→</span></button>
+    </form>
+  </div>
+</section>
+<section class="section section-tint" aria-labelledby="professional-contact-title">
+  <div class="wrap">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Professional contact</p>
+        <h2 id="professional-contact-title">Professional information</h2>
+      </div>
+    </div>
+    <div class="rich-copy">
+      <p><strong>Professional title:</strong> Independent MHPSS Technical Consultant. This contact designation is separate from the Jesuit Refugee Service staff appointment described in the professional biography.</p>
+      <h3>Academic affiliations</h3>
+      <ul>
+        <li>Department of Special Needs, Ghent University, Henri Dunantlaan 9, 9000 Ghent, Belgium.</li>
+        <li>Makerere University College of Humanities and Social Sciences (CHUSS), School of Psychology, Uganda.</li>
+      </ul>
+      <h3>Email</h3>
+      <ul>
+        <li><a href="mailto:moses.mukasa@ugent.be">moses.mukasa@ugent.be</a></li>
+        <li><a href="mailto:moses.mukasa@jrs.net">moses.mukasa@jrs.net</a></li>
+      </ul>
+      <h3>Telephone</h3>
+      <ul>
+        <li><a href="tel:+256788926044">+256788926044</a></li>
+        <li><a href="tel:+32479033198">+32479033198</a></li>
+      </ul>
+      <h3>Social media</h3>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/moses-mukasa-bwesige-6b2625183/" rel="noopener noreferrer">LinkedIn</a></li>
+        <li>X/Twitter: @MBwesige</li>
+        <li>Additional supplied account name: @mukasa moses Bwesige</li>
+      </ul>
+      <details>
+        <summary>Professional locations</summary>
+        <ul>
+          <li>Hunter St, Yeoville, Johannesburg, 2198, South Africa.</li>
+          <li>Kilimani, Gitanga Road, Nairobi, Kenya.</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</section>
+{% endblock %}

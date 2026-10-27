@@ -1,0 +1,11 @@
+{% if page_obj.has_other_pages %}
+  <nav class="pagination" aria-label="Archive pages">
+    {% if page_obj.has_previous %}
+      <a rel="prev" href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key|urlencode }}={{ value|urlencode }}{% endif %}{% endfor %}">← Previous</a>
+    {% else %}<span class="pagination-disabled">← Previous</span>{% endif %}
+    <span class="pagination-current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a rel="next" href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key|urlencode }}={{ value|urlencode }}{% endif %}{% endfor %}">Next →</a>
+    {% else %}<span class="pagination-disabled">Next →</span>{% endif %}
+  </nav>
+{% endif %}
